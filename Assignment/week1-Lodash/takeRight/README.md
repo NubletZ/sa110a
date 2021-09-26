@@ -20,4 +20,4 @@ Deno.test("takeRight", () => {
 
 after running the above test, the result shown `passed` which means my program have return the correct value for all conditions.
 
-<img src="result.PNG" alt="result" title="result" height="100"><br>
+<img src="result.PNG" alt="result" title="result" height="300"><br>
