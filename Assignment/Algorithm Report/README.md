@@ -8,7 +8,7 @@ The simple moving average is the `unweighted mean` of the previous $\ k$ data po
 
 As an example I try to implement SMA smoothing into my hand X coordinate data. The table below show the original data and the data after I implement smoothing into it with the window size of 5 and minimum number periods of 1:
 
-<img src="resource/SMATable.png" alt="Hand tracking data" title="Hand tracking data" width="500"><br>
+<img src="resource/SMATable.png" alt="Hand tracking data" title="Hand tracking data" width="600"><br>
 
 My SMA code :
 ```python
@@ -93,7 +93,7 @@ plt.show()
 ```
 </p></details> <br>
 
-<img src="resource/HandTracking_withoutReplace.jpg" alt="Hand tracking graph" title="Hand tracking graph" width="900"><br>
+<img src="resource/HandTracking_withoutReplace.jpg" alt="Hand tracking graph" title="Hand tracking graph" width="950"><br>
 
 I also put the line into one graph :
 <details><summary>show the code</summary>
@@ -118,7 +118,7 @@ plt.show()
 </p></details> <br>
 
 
-<img src="resource/HandTracking_withoutReplace1.jpg" alt="Hand tracking graph" title="Hand tracking graph" width="900"><br><br>
+<img src="resource/HandTracking_withoutReplace1.jpg" alt="Hand tracking graph" title="Hand tracking graph" width="950"><br><br>
 
 ## Exponential Moving Average (EMA)
 The exponential moving average is the `weighted mean`. The weight of each element will decrease progressively over time but it will never reaching zero. Below is the formula to calculate exponential moving average at the time period $\ t$ :
@@ -232,7 +232,7 @@ plt.show()
 ```
 </p></details> <br>
 
-<img src="resource/HandTracking_justEma.jpg" alt="EMA formula" title="EMA formula" width="900"><br>
+<img src="resource/HandTracking_justEma.jpg" alt="EMA formula" title="EMA formula" width="950"><br>
 
 <details><summary>show the code</summary>
 <p>
@@ -256,7 +256,7 @@ plt.show()
 ```
 </p></details> <br>
 
-<img src="resource/HandTracking_justEma1.jpg" alt="EMA formula" title="EMA formula" width="900"><br>
+<img src="resource/HandTracking_JustEma1.jpg" alt="EMA formula" title="EMA formula" width="950"><br>
 
 As you can see the result is simillar with SMA smoothing, you will hardly recognize the difference because we plot them in different graphic.
 
@@ -264,11 +264,11 @@ As you can see the result is simillar with SMA smoothing, you will hardly recogn
 
 I plot EMA and SMA smoothing result together with both window size of 10, below is the graph :
 
-<img src="resource/HandTracking_EMASMA10.jpg" alt="EMA formula" title="EMA formula" width="900"><br>
+<img src="resource/HandTracking_EMASMA10.jpg" alt="EMA formula" title="EMA formula" width="950"><br>
 
 I also try to increase the window size into 20, below is the result :
 
-<img src="resource/HandTracking_EMASMA20.jpg" alt="EMA formula" title="EMA formula" width="900"><br>
+<img src="resource/HandTracking_EMASMA20.jpg" alt="EMA formula" title="EMA formula" width="950"><br>
 
 As we can observed there are some differences between simple moving averages and exponential moving averages. EMA place a higher weighting on recent data than on older data, it makes EMA more responsive to the latest changes than SMA. On the other hand, SMA keep represent a true average of data for the entire time period.
 
