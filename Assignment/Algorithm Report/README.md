@@ -2,7 +2,7 @@
 Moving average, also known as `rolling mean` is an algorithm that commonly used with time series data to smooth random short-term variations and to highlight other components (trend, season, or cycle). It will calculated by averaging data of the time series within $\ k$ periods of time resulting the new smoothed data. There are several type of moving average including `Simple Moving Average` and `Exponential Moving Average`. Next I will write a hand tracking program and record the movement data. I write the program in python since I will use the hand tracking library provided by `CVZONE` which is available in python. I will use SMA and EMA algorithm to smoothing the hand movement captured by my camera in real time and do the comparation with the original data that have not been smoothed yet.
 
 ## Simple Moving Average (SMA)
-The simple moving average is the `unweighted mean` of the previous $\ k$ data points. $\ k$ as the sliding window is modify able. Increasing the $\ k$ value will improve the data smoothness but the data will become less accurate.
+The simple moving average is the `unweighted mean` of the previous k  data points. k as the sliding window is modify able. Increasing the k value will improve the data smoothness but the data will become less accurate.
 
 <img src="resource/SMA.PNG" alt="SMA formula" title="SMA formula" width="350"><br>
 
@@ -121,23 +121,40 @@ plt.show()
 <img src="resource/HandTracking_withoutReplace1.jpg" alt="Hand tracking graph" title="Hand tracking graph" width="950"><br><br>
 
 ## Exponential Moving Average (EMA)
-The exponential moving average is the `weighted mean`. The weight of each element will decrease progressively over time but it will never reaching zero. Below is the formula to calculate exponential moving average at the time period $\ t$ :
+The exponential moving average is the `weighted mean`. The weight of each element will decrease progressively over time but it will never reaching zero. Below is the formula to calculate exponential moving average at the time period t :
 
 <img src="resource/EMAformula.png" alt="EMA formula" title="EMA formula" width="350"><br>
 
 with :
-* $\ EMA_t$ is the exponential moving average at time period $\ t$
-* $\ x_t$ is observation at time period $\ t$
-* $\ α = \frac{2}{N + 1}$, with $\ N$ equal to days in $\ EMA$. $\ α$ represent the degree of weighting decrease
+* ![equation](https://latex.codecogs.com/png.latex?%5Cdpi%7B100%7D%20%5Cbg_white%20EMA_%7Bt%7D) is the exponential moving average at time period t
+* ![equation](https://latex.codecogs.com/png.latex?%5Cdpi%7B100%7D%20%5Cbg_white%20x_%7Bt%7D) is observation at time period t
+* ![equation](https://latex.codecogs.com/png.latex?%5Cdpi%7B100%7D%20%5Cbg_white%20%5Calpha%20%3D%20%5Cfrac%7B2%7D%7BN%20&plus;%201%7D), with N equal to days in EMA. α represent the degree of weighting decrease
 
-As an example I use the same hand tracking data and process it with EMA. I will use window size of 10 EMA so for the first 10 frames I use SMA data and make it as the input for $\ EMA_{t-1}$ on frame 11. Below is my code for EMA :
+As an example I use the same hand tracking data and process it with EMA. I will use window size of 10 EMA so for the first 10 frames I use SMA data and make it as the input for ![equation](https://latex.codecogs.com/png.latex?%5Cdpi%7B100%7D%20%5Cbg_white%20EMA_%7Bt-1%7D) on frame 11. Below is my code for EMA :
 
 ```python
+window_size = 10
+    
+tempState = [] # will keep the most 5 recent data
+tempAvg = 0
+
+def Simple_MovingAverage(point):
+    if(len(tempState) < window_size):
+        tempState.append(point)
+    else:
+        tempState.append(point)
+        tempState.pop(0) # remove old data
+                
+    if (len(tempState) > 0):
+        tempAvg = (statistics.mean(tempState))
+        
+    return tempAvg
+
 def Exponential_MovingAverage(point, N, lastEma):
-    if(N<5):
+    if(N < window_size):
         curEma = Simple_MovingAverage(point)
     else:
-        alpha = 2/(5 + 1)
+        alpha = 2/(window_size + 1)
         curEma = (point * alpha) + (lastEma * (1-alpha))
     return curEma
 ```
@@ -145,13 +162,14 @@ def Exponential_MovingAverage(point, N, lastEma):
 I use the following code to process the last data :
 
 ```python
+window_size = 10
 smoothEmaData = []
 lastEma = 0
 N = 1
 for data in realData:
     temp = Exponential_MovingAverage(data, N, lastEma)
     lastEma = temp
-    if(N<5):
+    if(N < window_size):
         N += 1
     smoothEData.append(temp)
 ```
