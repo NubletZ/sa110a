@@ -135,7 +135,7 @@ As an example I use the same hand tracking data and process it with EMA. I will 
 ```python
 window_size = 10
     
-tempState = [] # will keep the most 5 recent data
+tempState = [] # will keep the most 10 recent data
 tempAvg = 0
 
 def Simple_MovingAverage(point):
