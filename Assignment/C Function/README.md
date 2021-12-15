@@ -142,7 +142,7 @@ void nbzsnprintf(char *buffer, const size_t size, char *format, ... ){
 }
 ```
 
-For nbzsnprintf() I took reference from printf function written in [Write Your Own Printf Function In C - www.firmcodes.com](http://www.firmcodes.com/write-printf-function-c/). I do some modification so instead of printing out the character from format, I write the character into buffer. There is also a helper function named `convert()` that I used to convert integer into character. So first because user can add several variable after the format, so I use va_list to get those arguments. After that my program will enter loop until it meets `\0` the end of format string. If the character in format is not `%` and total chars in buffer have not exceed the `size-1` yet then it will execute :
+For nbzsnprintf() I took reference from printf function written in [Write Your Own Printf Function In C - www.firmcodes.com](http://www.firmcodes.com/write-printf-function-c/). I do some modification so instead of printing out the character from format, I write the character into buffer. There is also a helper function named `convert()` that I used to convert integer into character. First because user can add several variable after the format, so I use va_list to get those arguments. After that my program will enter loop until it meets `\0` the end of format string. If the character in format is not `%` and total chars in buffer have not exceed the `size-1` yet then it will execute :
 ```C
 while( *trv != '%' && count < tempSize ){
     buffer[count] = *trv;
